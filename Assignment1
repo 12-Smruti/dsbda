@@ -1,0 +1,41 @@
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("train_final.csv")
+df
+print(df.head())
+df.isnull()
+df.isnull().sum()
+df.describe()
+df.info()
+print(f"Rows: {df.shape[0]}, Columns: {df.shape[1]}")
+print(df.dtypes)
+df.isnull().sum()
+df['Cabin'] = df['Cabin'].replace(to_replace=np.nan, value="unknown")
+df
+df.isnull().sum()
+df['Age'] = df['Age'].interpolate()
+df
+df.isnull().sum()
+df
+df['Embarked'] = df['Embarked'].fillna(df['Embarked'].mode()[0])
+df
+df.isnull().sum()
+df['Age'] = df['Age'].astype('int64')
+df
+categorical_cols = ['Sex', 'Embarked', 'Pclass']
+print("Original categorical columns:\n", df[categorical_cols].head())
+df_encoded = pd.get_dummies(
+    df, 
+    columns=categorical_cols,
+    prefix=categorical_cols,  # Adds column name as prefix
+    drop_first=True,          # Avoids dummy variable trap
+    dtype='int8'              # Most memory-efficient type
+)
+print("\nEncoded columns:")
+print(df_encoded.filter(regex='Sex_|Embarked_|Pclass_').head())
+
+print("\nData types after encoding:")
+print(df_encoded.dtypes.tail(10))
