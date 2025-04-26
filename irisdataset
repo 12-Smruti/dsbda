@@ -1,0 +1,48 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+df=pd.read_csv("iris_final.csv")
+df
+df.shape
+df.columns
+df.info()
+
+df.isnull()
+df.isnull().sum()
+df.describe()
+df.dtypes
+
+grouped_stats = df.groupby('species').agg({
+    'sepal_length': ['mean', 'median', 'min', 'max', 'std'],
+    'sepal_width': ['mean', 'median', 'min', 'max', 'std'],
+    'petal_length': ['mean', 'median', 'min', 'max', 'std'],
+    'petal_width': ['mean', 'median', 'min', 'max', 'std']
+}).round(2)
+
+print(grouped_stats)
+
+grouped_stats
+
+species_numeric_values = {
+    species: group.drop(columns='species').values.tolist()
+    for species, group in df.groupby('species')
+}
+print species_numeric_values
+print(species_numeric_values)
+
+species_numeric_values
+
+species_descriptive_stats = {
+    species: df[df['species'] == species]                    # Filter rows for this species
+              .drop(columns='species')                       #  Remove the species column (only keep numeric)
+              .describe(percentiles=[0.25, 0.5, 0.75])        # Get descriptive statistics
+              .round(2)                                      #  Round all results to 2 decimal places
+    for species in df['species'].unique()                    # Repeat for each unique species
+}
+
+species_descriptive_stats
+
+
+
