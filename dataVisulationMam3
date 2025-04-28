@@ -1,0 +1,91 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+import seaborn as sns
+
+df=pd.read_csv("iris.csv")
+df
+
+df.shape
+df.columns
+  df.dtypes
+  df.info()
+  df.describe
+  df.isnull()
+  df.isnull().sum()
+  sns.relplot(data=df, x='sepal_length', y='sepal_width', hue='species')
+  sns.relplot(data=df, x='petal_length', y='petal_width', hue='species')
+  sns.pairplot(df, hue='species')
+
+  plt.figure(figsize=(15,10))
+plt.subplot(2,2,1)
+sns.boxplot(data=df, x='species', y='petal_length' ,palette='pastel')
+
+plt.subplot(2,2,2)
+sns.boxplot(data=df, x='species', y='petal_width')
+
+plt.subplot(2,2,3)
+sns.boxplot(data=df, x='species', y='sepal_length')
+
+plt.subplot(2,2,4)
+sns.boxplot(data=df, x='species', y='sepal_width')
+
+  plt.figure(figsize=(15,10))
+
+palette = {'setosa': 'lightcoral', 'versicolor': 'mediumseagreen', 'virginica': 'cornflowerblue'}
+
+plt.subplot(2,2,1)
+sns.boxplot(data=df, x='species', y='petal_length', palette=palette)
+
+plt.subplot(2,2,2)
+sns.boxplot(data=df, x='species', y='petal_width', palette=palette)
+
+plt.subplot(2,2,3)
+sns.boxplot(data=df, x='species', y='sepal_length', palette=palette)
+
+plt.subplot(2,2,4)
+sns.boxplot(data=df, x='species', y='sepal_width', palette=palette)
+
+plt.tight_layout()  # Prevents overlap between subplots
+plt.show()
+
+  sns.boxplot(data=df).set_title('Distribution of the Sepal_Length, Sepal_width and Petal_length, Petal_width')
+
+  df_numeric = df.select_dtypes(include='number')
+correlation_matrix = df_numeric.corr()
+print(correlation_matrix)
+#df.corr() wrong
+
+  plt.subplots(figsize=(8,8))
+sns.heatmap(data = df_numeric.corr(), annot=True, fmt='f').set_title("Correlation of attribute")
+
+  x=df.iloc[:,0:4].values
+df
+
+  y=df.iloc[:,4].values
+y
+
+  from sklearn.preprocessing import LabelEncoder
+le=LabelEncoder()
+y=le.fit_transform(y)
+y
+
+  from sklearn.model_selection import train_test_split
+x_train, x_test, y_train, y_test= train_test_split(x, y, test_size=0.3)
+
+  x_train
+x_train.shape
+  x_test
+  x_test.shape
+  y_train
+  y_train.shape
+  y_test
+  y_test.shape
+  from sklearn.naive_bayes import GaussianNB
+model=GaussianNB()
+model.fit(x_train, y_train) 
+
+  prediction= model.predict(x_train)
+  prediction
+  
