@@ -1,0 +1,130 @@
+from textblob import TextBlob
+import nltk
+b=TextBlob('I havv good spelling')
+b.correct()
+
+import nltk
+nltk.download('punkt')
+b1=TextBlob("Beautiful is better than ugly. "
+            "Explict is better than Implicit. " 
+            "Simple is better then Complex")
+#b1.words
+
+from textblob import TextBlob
+import nltk
+#nltk.download('punkt')
+nltk.download('punkt_tab')
+
+text = "Beautiful is better than ugly. Explicit is better than Implicit. Simple is better than Complex."
+b1 = TextBlob(text)
+b1.words
+
+b1.sentences
+sen=TextBlob('Use 4 spaces per intentation level')
+sen.words
+sen.words[2].singularize()
+sen.words[5].pluralize()
+
+animals=TextBlob('cat god Horse Lion')
+animals.words
+
+animals.words.pluralize()
+
+sen1=TextBlob("We are no longer the knughts who ekki says Ni. We are now the King of ekki in the United Kingdom")
+sen1.word_counts['ekki']
+
+sen1.words.count('ekki')
+
+sen1.words.count('ekki', case_sensitive=True)
+b=TextBlob("And now for something completely different.")
+print(b.parse())
+
+b1[0:5]
+TextBlob('Beautiful is better')
+
+b1[0:5]
+TextBlob('Beautiful is better')
+
+b1.upper()
+
+b1.find('Simple')
+
+apple_b=TextBlob('apples')
+banana_b=TextBlob('banana')
+apple_b < banana_b
+
+blob=TextBlob('Now is better than never')
+blob.ngrams(n=4)
+
+import nltk
+from nltk import tokenize
+from nltk.tokenize import sent_tokenize
+text='' "Good day Everybody. How are you all today? Its fun learning data analytic. Hope you are practicingg well"
+text 
+
+t_text=sent_tokenize(text)
+
+print(t_text)
+
+from nltk.tokenize import word_tokenize
+t_word=word_tokenize(text)
+print(t_word)
+
+from nltk.probability import FreqDist
+fdist=FreqDist(t_word)
+print(fdist) 
+
+fdist.most_common(4)
+
+import matplotlib.pyplot as plt
+fdist.plot(30, cumulative=False)
+
+nltk.download('stopwords')
+
+from nltk.corpus import stopwords
+stop_word=set(stopwords.words('english'))
+print(stop_word)
+
+filtered_sent=[]
+for w in t_word:
+  if w not in stop_word:
+    filtered_sent.append(w)
+
+print('Tokeinzate words: ',t_word)
+print("Filterzation words: ",filtered_sent)
+
+from nltk.stem import PorterStemmer
+from nltk.tokenize import sent_tokenize, word_tokenize
+ps= PorterStemmer()
+stemmeb_words=[]
+for w in filtered_sent:
+  stemmeb_words.append(ps.stem(w))
+
+print("filterd words: ", filtered_sent)
+print("Stemmed words: ", stemmeb_words)
+
+
+nltk.download('wordnet')
+
+from nltk.stem.wordnet import WordNetLemmatizer
+lem=WordNetLemmatizer()
+from nltk.stem.porter import PorterStemmer
+stem= PorterStemmer()
+word='fying'
+print("Lemmatizer words: ",lem.lemmatize(word,'v'))
+print("Stemmed word :", stem.stem(word))
+
+sent="Albert Einstine was born in ula in Germany in 1876"
+tokens= nltk.word_tokenize(sent)
+print(tokens)
+
+nltk.download('averaged_perceptron_tagger')
+
+a=nltk.pos_tag(tokens)
+print(a)
+
+from collections import Counter
+sentence=" Sihgad College of Engineering is best College in the area of Sinhgad"
+term_frequecy=Counter(sentence.split())
+
+term_frequecy
