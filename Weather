@@ -1,7 +1,13 @@
 from google.colab import files
 uploaded = files.upload()
 
+from collections import defaultdict
 import sys
+
+# Dictionaries to store sum and count of metrics
+metrics_sum = defaultdict(float)
+metrics_count = defaultdict(int)
+
 for line in sys.stdin:
     line = line.strip()
 
@@ -10,13 +16,12 @@ for line in sys.stdin:
         parts = line.split()
 
         try:
-            # Extract relevant values for temperature, dew point, and wind speed
-            # Assuming the columns are in the order provided (Temperature: 4th, Dew Point: 5th, Wind Speed: 12th)
-            temperature = float(parts[3])  # Temperature is the 4th column (index 3)
-            dew_point = float(parts[4])    # Dew Point is the 5th column (index 4)
-            wind_speed = float(parts[11])  # Wind Speed is the 12th column (index 11)
+            # Extract relevant values
+            temperature = float(parts[3])  # 4th column
+            dew_point = float(parts[4])    # 5th column
+            wind_speed = float(parts[11])  # 12th column
 
-            # Add to the sums and increment the count for each metric
+            # Accumulate values
             metrics_sum['temperature'] += temperature
             metrics_sum['dew_point'] += dew_point
             metrics_sum['wind_speed'] += wind_speed
@@ -26,10 +31,9 @@ for line in sys.stdin:
             metrics_count['wind_speed'] += 1
 
         except ValueError:
-            # If the conversion to float fails, skip the line
             continue
 
-# After processing all lines, calculate averages and output
+# Output average
 for metric in ['temperature', 'dew_point', 'wind_speed']:
     if metrics_count[metric] > 0:
         average = metrics_sum[metric] / metrics_count[metric]
