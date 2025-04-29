@@ -1,0 +1,82 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+  x_train.shape
+import seaborn as sns
+
+  df=pd.read_csv('Social_Network_Ads.csv')
+df
+
+  df.shape
+  df.columns
+  df.dtypes
+  df.info()
+  df.describe()
+  x=df.iloc[:,[2,3]].values
+x
+  y=df.iloc[:,4].values
+y
+  from sklearn.model_selection import train_test_split
+x_train, x_test, y_train, y_test= train_test_split(x, y, test_size=0.25)
+
+  x_train
+  x_test.shape
+  y_train
+  
+y_test
+  y_train.shape
+  y_test.shape
+  from sklearn.preprocessing import StandardScaler
+sc_x=StandardScaler()
+x_train=sc_x.fit_transform(x_train)
+x_test=sc_x.fit_transform(x_test)
+
+  x_train
+  x_test
+
+  from sklearn.linear_model import LogisticRegression
+classifier=LogisticRegression(random_state=0)
+classifier.fit(x_train, y_train)
+
+  y_pred=classifier.predict(x_test)
+y_pred
+
+  y_test
+
+  from sklearn.metrics import confusion_matrix
+cm=confusion_matrix  (y_test, y_pred)
+cm
+
+  from sklearn.metrics import accuracy_score
+accuracy=accuracy_score(y_test, y_pred)* 100
+accuracy
+
+  tp=cm[0,[0]]
+print('True Positivity ;',tp)
+
+  fp=cm[0,[1]]
+print('False Positivity: ',fp)
+
+  fn=cm[1,[0]]
+print('False Negativity:', fn)
+
+  tn=cm[1,[1]]
+print('True Negativity:', tn)
+
+  accuracy_cm=((tp+tn)/(tp+fp+fn+tn))
+print("accuracy :",accuracy_cm*100)
+
+  error_rate_cm=((fp+fn)/(tp+fp+fn+tn))
+print("Error_Rate :",error_rate_cm*100)
+
+  precision_cm=(tp/(tp+fp))
+print("Precision cm :",precision_cm*100)
+
+  recall_cm=(tp/(tp+fp))
+print("Sensitivity :",recall_cm*100)
+
+  specility_cm=(tn/(tn+fp))
+print("Specility :",specility_cm*100)
+
+  
