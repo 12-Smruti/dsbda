@@ -1,0 +1,37 @@
+import pandas as pd
+import numpy as np
+
+df=pd.read_csv('iris.csv')
+df
+df.dtypes
+
+df.shape
+df.head()
+df.describe()
+df.columns
+df.isnull()
+df.isnull().sum()
+df.info()
+
+df.drop(columns='species',inplace=True)
+df
+
+df_numeric = df.select_dtypes(include=['number'])
+min_value = np.min(df_numeric)
+print(min_value)
+
+df_numeric = df.select_dtypes(include=['number'])
+max_value = np.max(df_numeric)
+print(max_value)
+
+df_numeric = df.select_dtypes(include=['number'])
+df_numeric.quantile(0.25)
+
+df_numeric = df.select_dtypes(include=['number'])
+df_numeric.quantile(0.50)
+
+df_numeric = df.select_dtypes(include=['number'])
+df_numeric.quantile(0.75)
+
+np.quantile(0.25)
+np.min(df)
